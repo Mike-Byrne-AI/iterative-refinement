@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iterative refinement: the prompt chain I start projects with</title>
+<meta name="description" content="The prompt chain I use to start projects with AI: a brainstorm, a blueprint loop, then a starter repo. Seven prompts, free to copy and use.">
+<link rel="canonical" href="https://mike-byrne-ai.github.io/iterative-refinement/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mike-byrne-ai.github.io/iterative-refinement/">
+<meta property="og:title" content="Iterative refinement: the prompt chain I start projects with">
+<meta property="og:description" content="The prompt chain I use to start projects with AI: a brainstorm, a blueprint loop, then a starter repo. Seven prompts, free to copy and use.">
+<meta property="og:image" content="https://mike-byrne-ai.github.io/iterative-refinement/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A parchment card headed Iterative refinement, signed Mike × AI.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iterative refinement: the prompt chain I start projects with">
+<meta name="twitter:description" content="The prompt chain I use to start projects with AI: a brainstorm, a blueprint loop, then a starter repo. Seven prompts, free to copy and use.">
+<meta name="twitter:image" content="https://mike-byrne-ai.github.io/iterative-refinement/assets/og.png">
+<link rel="preload" href="assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans-v4-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#method">Skip to the method</a>
+<header class="masthead">
+  <a href="https://michaelbyrne.dev/">Michael Byrne</a>
+</header>
+<main>
+  <!-- art slot: hero (v2) -->
+  <section class="hero">
+    <h1>Iterative refinement</h1>
+    <p class="lede">How I start projects with AI: an idea, then a blueprint, then a starter repo. Warmed up, then kept on
+    the burner until I have time for it.</p>
+    <p class="actions">
+      <button type="button" class="copy primary" data-copy="b1 b2 b3 r1 r2 r3 r4" data-what="The whole chain">Copy the whole chain</button>
+      <a class="jump" href="#blueprint">Go to the prompts</a>
+    </p>
+    <p class="small">Seven prompts, free to copy and use (MIT-0).</p>
+  </section>
+
+  <section id="method">
+    <h2>The method</h2>
+    <p>I don't always have time for an idea when I have it. This is how I start it anyway.</p>
+    <ol class="phases">
+      <li><strong>Brainstorm.</strong> Draw the idea out of yourself, with AI helping you spitball.</li>
+      <li><strong>Blueprint.</strong> A loop of targeted prompts, each with its own objective, turns the idea into a
+      blueprint full of data and findings. The last one looks across everything for emergent findings.</li>
+      <li><strong>Starter repo.</strong> A stronger model turns the blueprint into a starter repo, and more rounds develop
+      it, ending with another look for emergent opportunities. What comes out is a strong starter repo snapshot.</li>
+    </ol>
+    <p>Every result goes into a folder I call Ready for Work. When time allows, it's easy to jump in: the project is
+    already warmed up.</p>
+  </section>
+
+  <!-- art slot: divider (v2) -->
+  <section id="brainstorm">
+    <h2><span class="num">1</span> The brainstorm</h2>
+    <p>There's no fixed prompt here, and that's the point: the brainstorm is about you, not the model. You're drawing an
+    idea out of yourself, and the AI is there to help you spitball.</p>
+    <p>This step can run on less expensive models. A more expensive one is worth it for a deeper brainstorm.</p>
+    <p class="watch"><strong>Watch for:</strong> on cheaper models, be hyper-critical of sycophancy, and of a model
+    agreeing with an idea that can't work.</p>
+  </section>
+
+  <!-- art slot: divider (v2) -->
+  <section id="blueprint">
+    <h2><span class="num">2</span> The blueprint loop</h2>
+    <p>Once you have the idea, run these in order, in one conversation. Put your idea where the first one says
+    (OBJECTIVE).</p>
+    <p class="actions"><button type="button" class="copy" data-copy="b1 b2 b3" data-what="The blueprint prompts">Copy all the blueprint prompts</button></p>
+<figure class="prompt" id="b1-card">
+  <figcaption><span class="step">Blueprint 1</span> The blueprint</figcaption>
+  <p class="prompt-text" id="b1">Let&#x27;s do a deep brainstorm session on
+(OBJECTIVE)
+We want to look at every angle we can find and vet the idea so an expert would be satisfied with the results. Make sure to ground the idea in strong engineering ideals, and only build towards a real attainable outcome. Let&#x27;s make a detailed blueprint that outlines the build.</p>
+  <button type="button" class="copy" data-copy="b1" data-what="The blueprint prompt">Copy this prompt</button>
+</figure>
+<figure class="prompt" id="b2-card">
+  <figcaption><span class="step">Blueprint 2</span> Expand the blueprint</figcaption>
+  <p class="prompt-text" id="b2">Let&#x27;s do a deep dive on researching this idea. Now that we have the blueprint, let&#x27;s keep expanding and adding to this. Why has this not been brought to market yet? What are the known issues and pitfalls of building in this area?</p>
+  <button type="button" class="copy" data-copy="b2" data-what="Expand the blueprint prompt">Copy this prompt</button>
+</figure>
+<figure class="prompt" id="b3-card">
+  <figcaption><span class="step">Blueprint 3</span> The final blueprint</figcaption>
+  <p class="prompt-text" id="b3">Let&#x27;s do a final round looking across all the context here. The goal is to find emergent possibilities and ideas that only come into view when all of this context can be cross analyzed. Look for new ideas, product forks, experiments, insights, tooling, and anything potentially useful. Make a final blueprint that lets us start to build this idea, and build it with future agentic engineering in mind. We want agents to be able to understand and build from this blueprint easily.</p>
+  <button type="button" class="copy" data-copy="b3" data-what="The final blueprint prompt">Copy this prompt</button>
+</figure>
+    <p class="watch"><strong>Watch for:</strong> context has to be managed. It's easy to spend too many turns on the
+    blueprint, to the point where more development before the final emergent pass does harm.</p>
+  </section>
+
+  <!-- art slot: divider (v2) -->
+  <section id="repo">
+    <h2><span class="num">3</span> The starter repo</h2>
+    <p>Next, a stronger model turns the final blueprint into a starter repo. Then these rounds develop it, in order.</p>
+    <p class="actions"><button type="button" class="copy" data-copy="r1 r2 r3 r4" data-what="The repo prompts">Copy all the repo prompts</button></p>
+<figure class="prompt" id="r1-card">
+  <figcaption><span class="step">Repo 1</span> Review</figcaption>
+  <p class="prompt-text" id="r1">We built this with my iterative refinement method. An idea was expanded to a blueprint, then the blueprint expanded to a starter repo. Let&#x27;s deeply review and assess the repo, the quality of its build and code, the research it packages as reference material, and the objective it is proposing to work on.</p>
+  <button type="button" class="copy" data-copy="r1" data-what="Review prompt">Copy this prompt</button>
+</figure>
+<figure class="prompt" id="r2-card">
+  <figcaption><span class="step">Repo 2</span> Repair and build</figcaption>
+  <p class="prompt-text" id="r2">Let&#x27;s take this information, add it to the repo, then make all repairs and improvements you can see. Let&#x27;s also make sure to really put effort into the objective itself. Let&#x27;s do a few of the tasks this repo is pointing towards, and make sure this work is held to the highest standards.</p>
+  <button type="button" class="copy" data-copy="r2" data-what="Repair and build prompt">Copy this prompt</button>
+</figure>
+<figure class="prompt" id="r3-card">
+  <figcaption><span class="step">Repo 3</span> Research dive</figcaption>
+  <p class="prompt-text" id="r3">Let&#x27;s do another deep external research dive. Look at any and all relevant science, known methods and open source tools and methods, and update the repo&#x27;s scientific and prior art libraries. We want this repo to start from the most educated standpoint we can, with info ready for cross analysis and reference. As we research, let&#x27;s apply any learned knowledge from the new info and from the last turn to continue working the objective so the next snapshot has new info and new results.</p>
+  <button type="button" class="copy" data-copy="r3" data-what="Research dive prompt">Copy this prompt</button>
+</figure>
+<figure class="prompt" id="r4-card">
+  <figcaption><span class="step">Repo 4</span> Final round</figcaption>
+  <p class="prompt-text" id="r4">Let&#x27;s do a final round of review and building. We are looking for emergent opportunities, experiment ideas, forks, s-tier tools that just became visible. We also want a doc at repo root that is a short summary of the repo, called summary.md. During this time, we want to keep an eye out for unique cross connections, and new ideas. Let&#x27;s advance the objective forward during this build as well. Where we are building and looking for emergent opportunities, let&#x27;s try to make this the example of a ‘perfect’ repo that one might imagine when asked.</p>
+  <button type="button" class="copy" data-copy="r4" data-what="Final round prompt">Copy this prompt</button>
+</figure>
+    <p class="watch"><strong>Watch for:</strong> the repo zip and attached files can grow pretty big, and some plans
+    and services handle that better than others.</p>
+  </section>
+
+  <!-- art slot: divider (v2) -->
+  <section id="ready">
+    <h2>Ready for Work</h2>
+    <p>That's the chain. What it makes waits in Ready for Work: every repo in that folder came from prompting a model
+    with a blueprint that stemmed from an idea. When I finally have time for one, it's warmed up, then kept on the
+    burner.</p>
+  </section>
+</main>
+<footer>
+  <p>The prompts are mine, free to copy and use under <a href="https://github.com/Mike-Byrne-AI/iterative-refinement/blob/main/LICENSE">MIT-0</a>.
+  I drafted this page with AI from my own notes: Mike × AI.</p>
+  <p><a href="https://michaelbyrne.dev/">michaelbyrne.dev</a> &middot;
+  <a href="https://github.com/Mike-Byrne-AI/iterative-refinement">Source on GitHub</a></p>
+</footer>
+<p id="copy-status" class="visually-hidden" aria-live="polite"></p>
+<script src="assets/copy.js"></script>
+</body>
+</html>

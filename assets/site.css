@@ -1,0 +1,92 @@
+/* Iterative refinement walkthrough. Tokens, fonts and paper textures follow michaelbyrne.dev
+   (read from its live stylesheet on 2026-11-23); light parchment or dark, by the reader's setting. */
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url(fonts/newsreader-v26-latin.woff2) format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url(fonts/newsreader-italic-v26-latin.woff2) format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url(fonts/instrument-sans-v4-latin.woff2) format("woff2"); }
+
+:root {
+  color-scheme: light;
+  --canvas: #e0cfac;
+  --surface: #ece0c5;
+  --ink: #343741;
+  --ink-strong: #15171d;
+  --ink-muted: #3e4047;
+  --line: #16181f21;
+  --rule: #16181f59;
+  --section: #38440b;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --step-0: clamp(.98rem, .94rem + .17vw, 1.08rem);
+  --step-1: clamp(1.16rem, 1.08rem + .36vw, 1.38rem);
+  --step-2: clamp(1.42rem, 1.28rem + .62vw, 1.82rem);
+  --step-3: clamp(1.82rem, 1.53rem + 1.21vw, 2.58rem);
+  --step-4: clamp(2.4rem, 1.85rem + 2.33vw, 3.9rem);
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.32 0 0 0 0 0.17 0 0 0 0.13 0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)'/%3E%3C/svg%3E");
+  --texture-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='c' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011' numOctaves='5' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.33 0 0 0 0 0.23 0 0 0 0 0.1 0.55 0 0 0 -0.24'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23c)'/%3E%3C/svg%3E");
+  --texture-cloud-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='l' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.016' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.97 0 0 0 0 0.88 0.6 0 0 0 -0.27'/%3E%3C/filter%3E%3Crect width='700' height='700' filter='url(%23l)'/%3E%3C/svg%3E");
+  --texture-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'%3E%3Cfilter id='m' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0035' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.4 0 0 0 0 0.18 0.4 0 0 0 -0.11'/%3E%3C/filter%3E%3Crect width='1000' height='1000' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --canvas: #11131a;
+    --surface: #1c1f2a;
+    --ink: #dad7cf;
+    --ink-strong: #f7f4eb;
+    --ink-muted: #aaa8a2;
+    --line: #f1eee221;
+    --rule: #f1eee259;
+    --section: #c2da7e;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--texture-grain) 0 0 / 320px 320px, var(--texture-cloud) 0 0 / 900px 900px,
+    var(--texture-cloud-light) 0 0 / 700px 700px, var(--texture-mottle) 0 0 / 1000px 1000px, var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) { body { background: var(--canvas); } }
+.masthead, main, footer { max-width: 44rem; margin-inline: auto; }
+.masthead { padding-block: 1.25rem .5rem; font-family: var(--font-serif); font-size: var(--step-1); }
+.masthead a { color: var(--ink-strong); text-decoration: none; }
+.masthead a:hover { text-decoration: underline; }
+h1, h2, figcaption { font-family: var(--font-serif); color: var(--ink-strong); font-weight: 600; line-height: 1.15; }
+h1 { font-size: var(--step-4); margin: 1.5rem 0 .75rem; }
+h2 { font-size: var(--step-3); margin: 3.5rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.num { color: var(--section); margin-right: .35em; }
+.lede { font-family: var(--font-serif); font-size: var(--step-2); line-height: 1.4; color: var(--ink-strong); margin: 0; }
+.small { font-size: .92rem; color: var(--ink-muted); }
+a { color: var(--ink-strong); text-underline-offset: .18em; }
+.phases { padding-left: 1.4rem; }
+.phases li { margin-bottom: .6rem; }
+.phases li::marker { color: var(--section); font-weight: 600; }
+.watch { border-left: 3px solid var(--section); padding: .25rem 0 .25rem 1rem; color: var(--ink-strong); }
+.prompt { margin: 1.5rem 0; padding: 1.1rem 1.25rem 1.25rem; background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 2px; }
+.prompt figcaption { font-size: var(--step-1); margin-bottom: .5rem; }
+.step { display: block; font-family: var(--font-sans); font-size: .85rem; font-weight: 600; color: var(--section); }
+.prompt-text { font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.55; color: var(--ink-strong);
+  white-space: pre-line; margin: 0 0 1rem; overflow-wrap: anywhere; }
+button.copy, a.jump { font: 600 .95rem/1.2 var(--font-sans); color: var(--ink-strong); background: transparent;
+  border: 1px solid var(--ink-strong); border-radius: 2px; padding: .6rem 1rem; cursor: pointer;
+  text-decoration: none; display: inline-block; }
+button.copy.primary { background: var(--ink-strong); color: var(--canvas); }
+button.copy:hover, a.jump:hover { background: var(--line); }
+button.copy.primary:hover { background: var(--ink); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--section); outline-offset: 2px; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+footer { margin-top: 4rem; padding-block: 1.5rem 3rem; border-top: 1px solid var(--rule); font-size: .92rem;
+  color: var(--ink-muted); }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 16px; background: var(--surface); padding: .5rem 1rem; z-index: 2; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; }
