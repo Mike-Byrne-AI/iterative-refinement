@@ -1,0 +1,144 @@
+/* Art: each section's theme, and the drawing that is refined from section to section.
+   Everything here is scoped to html.art-on, which art.js sets; ?noart leaves today's page untouched. */
+:root {
+  --graphite: #36322d;
+  /* layout: the gap between text and art, the clear strip at the window edge, and the smallest piece in a margin */
+  --art-gap: clamp(1.25rem, 2.6vw, 3.5rem);
+  --art-edge: 1.5rem;
+  --art-min: 8.5rem;
+}
+@media (prefers-color-scheme: dark) { :root { --graphite: #ddd6c8; } }
+
+/* Section inks: the theme's colour takes over the section token (numbers, step labels, watch bars, focus rings). */
+.art-on #brainstorm { --section: #46423c; }
+.art-on #blueprint { --section: #23518c; }
+.art-on #repo { --section: #962c15; }
+.art-on #ready { --section: #6f4c12; }
+.art-on .phases li:nth-child(1)::marker { color: #46423c; }
+.art-on .phases li:nth-child(2)::marker { color: #23518c; }
+.art-on .phases li:nth-child(3)::marker { color: #962c15; }
+@media (prefers-color-scheme: dark) {
+  .art-on #brainstorm { --section: #cfc8ba; }
+  .art-on #blueprint { --section: #9dbde9; }
+  .art-on #repo { --section: #f29a80; }
+  .art-on #ready { --section: #e4ba70; }
+  .art-on .phases li:nth-child(1)::marker { color: #cfc8ba; }
+  .art-on .phases li:nth-child(2)::marker { color: #9dbde9; }
+  .art-on .phases li:nth-child(3)::marker { color: #f29a80; }
+}
+
+/* Section rules: the line above each heading changes medium with the section. */
+.art-on #brainstorm h2, .art-on #blueprint h2, .art-on #repo h2, .art-on #ready h2 { border-top: 0; position: relative; }
+.art-on #brainstorm h2::before, .art-on #blueprint h2::before, .art-on #repo h2::before, .art-on #repo h2::after,
+.art-on #ready h2::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -5px; height: 11px; background: var(--section);
+  -webkit-mask: var(--rule-img) 0 0 / 100% 100% no-repeat; mask: var(--rule-img) 0 0 / 100% 100% no-repeat;
+}
+/* pencil: a hand-drawn line that wanders a little */
+.art-on #brainstorm h2 { --rule-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 11' preserveAspectRatio='none'%3E%3Cpath d='M3 6.2C140 4.6 260 7.4 420 5.6S700 4.2 820 6.4 960 5.2 997 4.8' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M380 6.6C520 5.2 640 7 760 5.4' fill='none' stroke='%23000' stroke-width='.8' opacity='.6'/%3E%3C/svg%3E"); }
+/* blueprint: a ruled line with measuring ticks */
+.art-on #blueprint h2 { --rule-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 11' preserveAspectRatio='none'%3E%3Cpath d='M0 5.5H1000' stroke='%23000' stroke-width='1.2'/%3E%3Cpath d='M0 1v9M100 3v5M200 3v5M300 3v5M400 3v5M500 1v9M600 3v5M700 3v5M800 3v5M900 3v5M1000 1v9' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E"); }
+/* print: a heavy black rule with the colour plate printed slightly off register */
+.art-on #repo h2 { --rule-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 11' preserveAspectRatio='none'%3E%3Crect y='3' width='1000' height='4'/%3E%3C/svg%3E"); }
+.art-on #repo h2::before { background: var(--ink-strong); }
+.art-on #repo h2::after { transform: translate(4px, 3px); z-index: -1; }
+/* Ready for Work: the edge of a folder, with its tab */
+.art-on #ready h2 { --rule-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 11' preserveAspectRatio='none'%3E%3Cpath d='M0 9.5H30L42 2H200L212 9.5H1000' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E"); }
+
+/* The drawings. Each element draws, fades or settles across its own window --a..--b of the piece's --p. */
+.art { pointer-events: none; user-select: none; -webkit-user-select: none; }
+.art svg { display: block; width: 100%; height: auto; }
+.art .d, .art .f, .art .m, .art .sl { --t: clamp(0, (var(--p, 1) - var(--a, 0)) / (var(--b, 1) - var(--a, 0)), 1); }
+.art .d { stroke-dasharray: 1 2; stroke-dashoffset: calc(1 - var(--t)); opacity: calc(var(--o, 1) * min(1, var(--t) * 40)); }
+.art .f { opacity: calc(var(--o, 1) * var(--t)); }
+.art .m { transform: translate(calc(1.3px + (1 - var(--t)) * 7px), calc(-0.9px - (1 - var(--t)) * 6px)); }
+.art .sl { transform: translateY(calc((1 - var(--t)) * (1 - var(--t)) * -200px)); }
+.art .gr { fill: none; stroke: var(--graphite); stroke-linecap: round; stroke-linejoin: round; }
+.art .gr-fill { fill: var(--graphite); }
+@media (prefers-reduced-motion: reduce) { .art svg { --p: 1 !important; } }
+
+/* Layout. From 860 px each piece sits in the margin beside its section, on alternating sides, and stays in view
+   (sticky) while its section scrolls past. It takes what the margin has room for, so it shrinks with the window;
+   below about 1100 px the text column gives up a little width so the pieces keep a usable size. Nothing sits
+   behind text. */
+@media (min-width: 860px) {
+  /* the piece takes the margin's room, but never less than 17% of the window; the column gives way for it */
+  html.art-on {
+    --art-w: clamp(var(--art-min), max(17vw, (100vw - 44rem) / 2 - var(--art-gap) - var(--art-edge)), 30rem);
+    --col: min(44rem, 100vw - 2 * (var(--art-w) + var(--art-gap) + var(--art-edge)));
+  }
+  .art-on .masthead, .art-on main, .art-on footer { max-width: var(--col); }
+  .art-on main > section { position: relative; }
+  .art { position: absolute; top: 0; bottom: 0; width: var(--art-w); }
+  .art--right { left: calc(100% + var(--art-gap)); }
+  .art--left { right: calc(100% + var(--art-gap)); }
+  .art-stage { position: sticky; top: 9vh; }
+  .art svg { max-height: 82vh; }
+  .art--hero { top: 1.25rem; }
+  .art--hero .art-stage { position: static; }
+}
+/* Below 860 px: each piece floats beside its section's opening paragraph, about a third of the width, on the
+   same alternating sides; buttons, prompts and the Watch-for bar start below it. */
+@media (max-width: 859.98px) {
+  .art-on main > section { display: flow-root; }
+  .art { width: clamp(6.5rem, 33vw, 13rem); margin: .45rem 0 .8rem; }
+  .art--left { float: left; margin-right: 1rem; }
+  .art--right { float: right; margin-left: 1rem; }
+  .art svg { max-height: 50vh; }
+  .art-on .actions, .art-on .watch, .art-on .prompt { clear: both; }
+}
+
+/* ---------- Colour fields ----------
+   Each section's band takes its medium's colour: legal-pad yellow, blueprint blue, risograph pink, a green desk.
+   The text sits on a paper sheet, so every line keeps the page's own background. */
+.art-on body { overflow-x: clip; }
+.art-on main > section:is(#brainstorm, #blueprint, #repo, #ready) {
+  position: relative; isolation: isolate; display: flow-root; padding-block: 3.25rem 3.75rem;
+  --sheet-pad: max(.6rem, calc(var(--art-gap) * .5));
+}
+.art-on main > section:is(#brainstorm, #blueprint, #repo, #ready) > h2 { margin-top: 0; }
+/* the band is at least as tall as its piece, which starts level with the sheet */
+@media (min-width: 860px) {
+  .art-on main > section:is(#brainstorm, #blueprint, #repo, #ready) {
+    min-height: calc(1.6rem + min(82vh, var(--art-w) * var(--ar, 1.4)) + 1.9rem); }
+  .art-on main > section:is(#brainstorm, #blueprint, #repo, #ready) > .art { top: 1.6rem; bottom: 1.9rem; }
+}
+.art-on main > section:is(#brainstorm, #blueprint, #repo, #ready)::before {
+  content: ""; position: absolute; z-index: -2; top: 0; bottom: 0; left: 50%; width: 100vw; margin-left: -50vw;
+  background: var(--field);
+}
+.art-on main > section:is(#brainstorm, #blueprint, #repo, #ready)::after {
+  content: ""; position: absolute; z-index: -1; top: 1.6rem; bottom: 1.9rem;
+  left: calc(-1 * var(--sheet-pad)); right: calc(-1 * var(--sheet-pad));
+  background: var(--texture-grain) 0 0 / 320px 320px, var(--texture-cloud) 0 0 / 900px 900px, var(--canvas);
+  box-shadow: 7px 7px 0 var(--sheet-shadow);
+}
+.art-on #brainstorm {
+  --field: repeating-linear-gradient(180deg, transparent 0 27px, #2f62a855 27px 28px) 0 0 / 100% 28px, #f7d33f;
+  --sheet-shadow: #b8930f;
+}
+.art-on #blueprint {
+  --field: linear-gradient(#ffffff40 1px, transparent 1px) 0 0 / 120px 120px,
+    linear-gradient(90deg, #ffffff40 1px, transparent 1px) 0 0 / 120px 120px,
+    linear-gradient(#ffffff1c 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, #ffffff1c 1px, transparent 1px) 0 0 / 24px 24px, #1d5aa6;
+  --sheet-shadow: #0e3468;
+}
+.art-on #repo {
+  --field: radial-gradient(#e0287a 1.7px, transparent 2px) 0 0 / 9px 9px, #ff6aae;
+  --sheet-shadow: #b3175e;
+}
+.art-on #ready {
+  --field: var(--texture-grain) 0 0 / 320px 320px, #2e8a62;
+  --sheet-shadow: #175a3c;
+}
+@media (prefers-color-scheme: dark) {
+  .art-on main > section:is(#brainstorm, #blueprint, #repo, #ready)::after { background: var(--canvas); }
+  .art-on #brainstorm { --field: repeating-linear-gradient(180deg, transparent 0 27px, #ffffff1f 27px 28px) 0 0 / 100% 28px, #8c7108; --sheet-shadow: #4d3e05; }
+  .art-on #blueprint { --field: linear-gradient(#ffffff2a 1px, transparent 1px) 0 0 / 120px 120px,
+      linear-gradient(90deg, #ffffff2a 1px, transparent 1px) 0 0 / 120px 120px,
+      linear-gradient(#ffffff12 1px, transparent 1px) 0 0 / 24px 24px,
+      linear-gradient(90deg, #ffffff12 1px, transparent 1px) 0 0 / 24px 24px, #17427a; --sheet-shadow: #0a2142; }
+  .art-on #repo { --field: radial-gradient(#6e1440 1.7px, transparent 2px) 0 0 / 9px 9px, #9a2a63; --sheet-shadow: #571336; }
+  .art-on #ready { --field: #1f6448; --sheet-shadow: #0f3726; }
+}
